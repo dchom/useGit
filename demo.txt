@@ -1,0 +1,58 @@
+轻松使用git：
+1、git init : 初始化仓库
+1、git add <file>: 文件添加到暂存区（可同时多add）
+2、git commit -m <message> ： 暂存区提交到仓库
+3、git status : 工作区状态（是否有文件修改未提交）
+4、git diff : 查看文件修改内容
+head : 当前分支
+5、git reset --hard commit_id : 穿梭不同版本（commit_id 可简写 ，^为上一版本）
+6、git log : 查看提交历史
+7、git reflog : 查询历史命令
+8、git checkout -- <file> 丢弃工作区的修改（回到最近一次 git commit或git add的状态：一键还原）
+9、git reset HEAD <file> 撤销暂存区的修改
+10、git rm <file> 删除文件（需 commit ）
+
+远程同步(origin)
+1、git remote add origin git@github.com:<gihub-name>/<repository-name>.git
+2、git push -u origin <master> ： 把当前分支推送到github （ -u 关联远程分支去掉后仅同步）
+3、git clone git@github.com:<gihub-name>/<repository-name>.git ：克隆远程分支到本地
+
+分支管理
+1、git branch `<branch>`
+2、git checkout -b `<branch>` 切换分支（-d 创建并切换）【与撤销修改命令相同所以尽量使用switch】
+3、git switch -c {branch} 切换分支 （-c 创建并切换）
+3、git branch 查看当前分支
+4、git merge {branch} 合并指定分支到当前分支
+5、git branch -d <branch> 删除指定分支
+6、<<<<<<<，=======，>>>>>>>  分支冲突（同时提交）标记的不同分支修改内容
+7、git log --graph 分支合并图
+8、 合并分支默认fast forward 模式（丢弃删除的分支）禁用后会在merge 生成新commit（--no-ff 合并时禁用该模式）
+9、 master分支仅更新版本，修改操作都在其他分支操作，最后合并到master
+
+临时分支
+1、git stash 储存当前工作现场
+2、git stash list 查看储存的现场
+3、git stash apply 恢复当前工作现场
+4、git stash drop 删除储存的工作现场
+5、git stash pop 恢复并删除
+6、git cherry-pick <commit> 复制特定提交到当前分支
+7、git branch -D <branch> 销毁当前未合并分支（-D）
+
+多人协作
+1、git remote 查看远程库信息（-v 详细）
+2、git push origin {branch} 推送分支
+3、git pull 从最新提交抓取
+4、rebase操作可以把本地未push的分叉提交历史整理成直线，目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比
+
+标签
+1、git tag <tagname> <commit_id> {-m "描述信息"} 打标签 (默认为当前commit)
+2、git show <tagname> 查看标签信息（按字母排序）
+3、git tag -d <tagname> 删除标签
+4、git push origin <tagname> 推送标签到远程 （--tags 推送所有标签）
+5、git push origin :refs/tags/<tagname> 删除远程标签
+
+other
+1、git config --global color.ui true 显示颜色
+2、git config --global alias.st status 取别名 (status = st)
+3、（ 常用checkout = co commit = ci branch = br）
+4、git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
